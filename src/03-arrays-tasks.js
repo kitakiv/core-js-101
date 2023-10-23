@@ -641,8 +641,13 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+// eslint-disable-next-line no-unused-vars
+function group(array, keySelector, valueSelector) {
+  const m = array.reduce((acc, item) => ({
+    ...acc,
+    [item.keySelector]: [acc[item.keySelector].concat([item.valueSelector])],
+  }), {});
+  return m;
 }
 
 

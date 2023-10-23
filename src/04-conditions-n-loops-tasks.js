@@ -426,8 +426,31 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let result = '';
+  for (let i = 0; i < pathes[0].length; i += 1) {
+    let res = true;
+    for (let p = 1; p < pathes.length; p += 1) {
+      if (pathes[0][i] === pathes[p][i]) {
+        res = true;
+      } else {
+        res = false;
+        p = pathes.length;
+      }
+    }
+    if (res) {
+      result += pathes[0][i];
+    } else {
+      i = pathes[0].length;
+    }
+  }
+  if (result.at(-1) === '/') {
+    return result;
+  }
+  result = result.split('/');
+  // eslint-disable-next-line indent
+    result.pop();
+  return `${result.join('/')}/`;
 }
 
 
@@ -449,8 +472,21 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    const first = [];
+    for (let g = 0; g < m1.length; g += 1) {
+      let num = 0;
+      for (let r = 0; r < m1[0].length; r += 1) {
+        const number = m1[i][r] * m2[r][g];
+        num += number;
+      }
+      first.push(num);
+    }
+    result.push(first);
+  }
+  return result;
 }
 
 
