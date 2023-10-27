@@ -315,8 +315,27 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let Issecond = true;
+  const card = ccn.toString().split('').reverse();
+  // const control = card[card.length - 1];
+  // card.pop();
+  // card.reverse();
+  const result = card.reduce((acc, elem) => {
+    Issecond = !Issecond;
+    if (Issecond) {
+      // eslint-disable-next-line radix
+      const num = parseInt(elem) * 2;
+      if (num > 9) {
+        return acc + 1 + (num % 10);
+      }
+      return acc + num;
+    }
+    // eslint-disable-next-line radix
+    return acc + parseInt(elem);
+  }, 0);
+  // eslint-disable-next-line radix, eqeqeq
+  return result % 10 === 0;
 }
 
 /**
@@ -520,8 +539,31 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const mas = position;
+  for (let i = 0; i < 3; i += 1) {
+    if (mas[i][0] === mas[i][1] && mas[i][0] === mas[i][2]) {
+      if (mas[i][0] === 'X' || mas[i][0] === '0') {
+        return mas[i][0];
+      }
+    }
+    if (mas[0][i] === mas[1][i] && mas[0][i] === mas[2][i]) {
+      if (mas[0][i] === 'X' || mas[0][i] === '0') {
+        return mas[0][i];
+      }
+    }
+  }
+  if (mas[0][0] === mas[1][1] && mas[0][0] === mas[2][2]) {
+    if (mas[0][0] === 'X' || mas[0][0] === '0') {
+      return mas[0][0];
+    }
+  }
+  if (mas[0][2] === mas[1][1] && mas[0][2] === mas[2][0]) {
+    if (mas[0][2] === 'X' || mas[0][2] === '0') {
+      return mas[0][2];
+    }
+  }
+  return undefined;
 }
 
 

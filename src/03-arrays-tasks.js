@@ -643,11 +643,23 @@ function distinct(arr) {
  */
 // eslint-disable-next-line no-unused-vars
 function group(array, keySelector, valueSelector) {
-  const m = array.reduce((acc, item) => ({
-    ...acc,
-    [item.keySelector]: [acc[item.keySelector].concat([item.valueSelector])],
-  }), {});
-  return m;
+  // eslint-disable-next-line array-callback-return
+  const map = array.reduce((acc, elem) => {
+    let flag = true;
+    acc.reduce((accom, element, index) => {
+      if (keySelector(elem) === element[0]) {
+        acc[index][1].push(valueSelector(elem));
+        flag = false;
+        return [...accom, 1];
+      }
+      return accom;
+    }, []);
+    if (flag) {
+      return [...acc, [`${keySelector(elem)}`, [`${valueSelector(elem)}`]]];
+    }
+    return acc;
+  }, []);
+  return map;
 }
 
 
