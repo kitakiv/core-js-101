@@ -469,7 +469,10 @@ function getCommonDirectoryPath(pathes) {
   result = result.split('/');
   // eslint-disable-next-line indent
     result.pop();
-  return `${result.join('/')}/`;
+  if (result.length !== 0) {
+    return `${result.join('/')}/`;
+  }
+  return '';
 }
 
 
